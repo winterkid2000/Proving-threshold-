@@ -1,0 +1,15 @@
+import numpy as np
+
+# 물리 상수
+hbar = 1.05e-34  # J·s (플랑크 상수 / 2π)
+m_e = 9.11e-31   # kg (전자 질량)
+V0 = 4.5 * 1.6e-19  # J (일함수, 4.5 eV)
+d = 1e-9  # m (터널링 거리)
+
+# 전기장 설정
+E_values = np.linspace(10, 1e10, 100)  # 10 V/m ~ 10^10 V/m 범위
+T_values = np.exp(- (4 * np.sqrt(2 * m_e) / (3 * hbar)) * (V0**(3/2) / E_values))
+
+# 터널링 확률이 e^-1 이상이 되는 최소 전기장 찾기
+threshold = np.exp(-1)
+E_min = E_values[np.argmax(T_values >= threshold)]  # 가장 작은 E 찾기
